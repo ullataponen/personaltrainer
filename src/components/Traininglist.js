@@ -9,26 +9,9 @@ export default function Traininglist() {
 	useEffect(() => fetchData(), []);
 
 	const fetchData = () => {
-		fetch("https://customerrest.herokuapp.com/api/trainings")
+		fetch("https://customerrest.herokuapp.com/gettrainings")
 			.then(response => response.json())
-			.then(data => setTrainings(data.content));
-	};
-
-	// const getName = link => {
-	// 	fetchTrainingCust(link);
-	// 	return name;
-	// };
-
-	const fetchTrainingCust = link => {
-		fetch(link)
-			.then(response => response.json())
-			.then(nameData => {
-				setName({
-					...name,
-					firstName: nameData.firstname,
-					lastName: nameData.lastname
-				});
-			});
+			.then(data => setTrainings(data));
 	};
 
 	const columns = [
@@ -39,7 +22,9 @@ export default function Traininglist() {
 		{
 			title: "Date",
 			field: "date",
-			render: rowdate => <Moment format="DD/MM/YYYY">{rowdate.date}</Moment>
+			render: rowdate => (
+				<Moment format="DD/MM/YYYY HH:mm">{rowdate.date}</Moment>
+			)
 		},
 		{
 			title: "Duration (min)",
@@ -47,8 +32,10 @@ export default function Traininglist() {
 		},
 		{
 			title: "Customer",
-			field: "links[2].href",
-			render: rowData => <span>{fetchTrainingCust(rowData.url)}</span>
+			field: "customer.firstname" + "customer.lastname",
+			render: row => (
+				<span>{row.customer.firstname + " " + row.customer.lastname}</span>
+			)
 		}
 	];
 
