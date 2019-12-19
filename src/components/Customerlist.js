@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import MaterialTable from "material-table";
 import DeleteIcon from "@material-ui/icons/Delete";
 import Notifier, { openSnackbar } from "./Notifier";
+import Addcustomer from "./Addcustomer";
+import Addtraining from "./Addtraining";
 
 export default function Customerlist() {
 	const [customers, setCustomers] = useState([]);
@@ -24,6 +26,28 @@ export default function Customerlist() {
 		}
 	};
 
+	const saveCustomer = customer => {
+		fetch("https://customerrest.herokuapp.com/api/customers", {
+			method: "POST",
+			headers: { "Content-Type": "application/json" },
+			body: JSON.stringify(customer)
+		})
+			.then(res => fetchData())
+			.catch(err => console.error(err));
+		openSnackbar({ message: "Customer added successfully" });
+	};
+
+	const saveTraining = training => {
+		fetch("https://customerrest.herokuapp.com/api/trainings", {
+			method: "POST",
+			headers: { "Content-Type": "application/json" },
+			body: JSON.stringify(training)
+		})
+			.then(res => fetchData())
+			.catch(err => console.error(err));
+		openSnackbar({ message: "Training added successfully" });
+	};
+
 	const columns = [
 		{
 			title: "Actions",
@@ -36,6 +60,15 @@ export default function Customerlist() {
 			),
 			sorting: false
 		},
+		// {
+		// 	title: "ID",
+		// 	field: "links[0].href",
+		// 	render: rowId => {
+		// 		let id = rowId.links[0].href.split("/");
+		// 		id = id[id.length - 1];
+		// 		return <span>{id}</span>;
+		// 	}
+		// },
 		{
 			title: "First name",
 			field: "firstname"
@@ -63,18 +96,29 @@ export default function Customerlist() {
 		{
 			title: "City",
 			field: "city"
+		},
+		{
+			title: "Add training",
+			render: trainingRow => (
+				<Addtraining
+					saveTraining={saveTraining}
+					customerId={trainingRow.links[0].href}
+				/>
+			),
+			sorting: false
 		}
 	];
 
 	return (
 		<div>
+			<Notifier />
+			<Addcustomer saveCustomer={saveCustomer} />
 			<MaterialTable
 				title="Customers"
 				data={customers}
 				columns={columns}
 				options={{ sorting: true }}
 			/>
-			<Notifier />
 		</div>
 	);
 }

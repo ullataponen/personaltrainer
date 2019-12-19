@@ -65,13 +65,13 @@ export default function Traininglist() {
 
 	return (
 		<div>
+			<Notifier />
 			<MaterialTable
 				title="Trainings"
 				data={trainings}
 				columns={columns}
 				options={{ sorting: true }}
 			/>
-			<Notifier />
 		</div>
 	);
 }
