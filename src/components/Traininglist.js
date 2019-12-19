@@ -21,9 +21,15 @@ export default function Traininglist() {
 			fetch("https://customerrest.herokuapp.com/api/trainings/" + id, {
 				method: "DELETE"
 			})
-				.then(res => fetchData())
+				.then(res => {
+					fetchData();
+					if (res.status >= 200 && res.status < 300) {
+						openSnackbar({ message: "Training deleted successfully" });
+					} else {
+						openSnackbar({ message: "Error. Try again." });
+					}
+				})
 				.catch(err => console.error(err));
-			openSnackbar({ message: "Training deleted successfully" });
 		}
 	};
 

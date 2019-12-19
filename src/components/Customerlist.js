@@ -4,6 +4,7 @@ import DeleteIcon from "@material-ui/icons/Delete";
 import Notifier, { openSnackbar } from "./Notifier";
 import Addcustomer from "./Addcustomer";
 import Addtraining from "./Addtraining";
+import Editcustomer from "./Editcustomer";
 
 export default function Customerlist() {
 	const [customers, setCustomers] = useState([]);
@@ -20,9 +21,15 @@ export default function Customerlist() {
 		if (window.confirm("Are you sure to delete?")) {
 			console.log(link);
 			fetch(link, { method: "DELETE" })
-				.then(res => fetchData())
+				.then(res => {
+					fetchData();
+					if (res.status >= 200 && res.status < 300) {
+						openSnackbar({ message: "Customer deleted successfully" });
+					} else {
+						openSnackbar({ message: "Error. Try again." });
+					}
+				})
 				.catch(err => console.error(err));
-			openSnackbar({ message: "Customer deleted successfully" });
 		}
 	};
 
@@ -32,9 +39,15 @@ export default function Customerlist() {
 			headers: { "Content-Type": "application/json" },
 			body: JSON.stringify(customer)
 		})
-			.then(res => fetchData())
+			.then(res => {
+				fetchData();
+				if (res.status >= 200 && res.status < 300) {
+					openSnackbar({ message: "Customer added successfully" });
+				} else {
+					openSnackbar({ message: "Error. Try again." });
+				}
+			})
 			.catch(err => console.error(err));
-		openSnackbar({ message: "Customer added successfully" });
 	};
 
 	const saveTraining = training => {
@@ -43,20 +56,45 @@ export default function Customerlist() {
 			headers: { "Content-Type": "application/json" },
 			body: JSON.stringify(training)
 		})
-			.then(res => fetchData())
+			.then(res => {
+				fetchData();
+				if (res.status >= 200 && res.status < 300) {
+					openSnackbar({ message: "Training added successfully" });
+				} else {
+					openSnackbar({ message: "Error. Try again." });
+				}
+			})
 			.catch(err => console.error(err));
-		openSnackbar({ message: "Training added successfully" });
+	};
+
+	const updateCustomer = (customer, link) => {
+		fetch(link, {
+			method: "PUT",
+			headers: { "Content-Type": "application/json" },
+			body: JSON.stringify(customer)
+		})
+			.then(res => fetchData())
+			.then(openSnackbar({ message: "Customer updated successfully" }))
+			.catch(err => console.error(err));
 	};
 
 	const columns = [
 		{
-			title: "Actions",
+			title: "Delete",
 			field: "links[0].href",
-			render: rowData => (
+			render: customerData => (
 				<DeleteIcon
 					style={{ cursor: "pointer" }}
-					onClick={() => deleteCustomer(rowData.links[0].href)}
+					onClick={() => deleteCustomer(customerData.links[0].href)}
 				></DeleteIcon>
+			),
+			sorting: false
+		},
+		{
+			title: "Edit",
+			field: "links[0].href",
+			render: customerData => (
+				<Editcustomer updateCustomer={updateCustomer} customer={customerData} />
 			),
 			sorting: false
 		},
