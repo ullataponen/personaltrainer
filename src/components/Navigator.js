@@ -40,11 +40,11 @@ const Navigator = () => {
 								Trainings
 							</Link>
 						</li>
-						{/* <li className="nav-item">
+						<li className="nav-item">
 							<Link className="nav-link" to="/calendar">
 								Calendar
 							</Link>
-						</li> */}
+						</li>
 					</ul>
 				</div>
 			</nav>

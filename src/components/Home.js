@@ -11,9 +11,9 @@ const Home = () => {
 			<p>
 				To see the trainings, go to <a href="/trainings">Trainings</a>.
 			</p>
-			{/* <p>
+			<p>
 				To see the calendar, go to <a href="/calendar">Calendar</a>.
-			</p> */}
+			</p>
 		</div>
 	);
 };

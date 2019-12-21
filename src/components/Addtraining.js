@@ -14,10 +14,6 @@ export default function Addtraining(props) {
 		duration: "",
 		customer: props.customerId
 	});
-	// const [customerName, setCustomerName] = useState({
-	// 	firstName: "",
-	// 	lastName: ""
-	// });
 
 	const handleClickOpen = () => {
 		setOpen(true);
@@ -36,20 +32,6 @@ export default function Addtraining(props) {
 		props.saveTraining(training);
 		handleClose();
 	};
-
-	// const getCustomerName = link => {
-	// 	console.log(link);
-	// 	fetch(link)
-	// 		.then(resp => resp.json)
-	// 		.then(nameData =>
-	// 			setCustomerName({
-	// 				...customerName,
-	// 				firstName: nameData.firstname,
-	// 				lastName: nameData.lastname
-	// 			})
-	// 		);
-	// 	return customerName;
-	// };
 
 	return (
 		<div>
@@ -93,15 +75,6 @@ export default function Addtraining(props) {
 						label="Duration"
 						fullWidth
 					/>
-					{/* <TextField
-						margin="dense"
-						name="customer"
-						value={() => getCustomerName(props.customerId)}
-						onChange={e => handleInputChange(e)}
-						label="Customer ID"
-						fullWidth
-                        disabled
-					/> */}
 				</DialogContent>
 				<DialogActions>
 					<Button onClick={handleClose} color="primary">

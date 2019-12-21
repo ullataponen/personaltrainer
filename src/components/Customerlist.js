@@ -18,7 +18,7 @@ export default function Customerlist() {
 	};
 
 	const deleteCustomer = link => {
-		if (window.confirm("Are you sure to delete?")) {
+		if (window.confirm("Are you sure to delete customer?")) {
 			console.log(link);
 			fetch(link, { method: "DELETE" })
 				.then(res => {
@@ -98,15 +98,6 @@ export default function Customerlist() {
 			),
 			sorting: false
 		},
-		// {
-		// 	title: "ID",
-		// 	field: "links[0].href",
-		// 	render: rowId => {
-		// 		let id = rowId.links[0].href.split("/");
-		// 		id = id[id.length - 1];
-		// 		return <span>{id}</span>;
-		// 	}
-		// },
 		{
 			title: "First name",
 			field: "firstname"
