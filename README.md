@@ -1,3 +1,7 @@
+# 💪 Personal Trainer 💪
+
+This is a React app for user and training data with basic CRUD functionalities. It utilizes a REST API, UI has been created with the help of Material UI and the calendar function with Big Calendar.
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
