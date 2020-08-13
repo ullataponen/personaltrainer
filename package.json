@@ -17,7 +17,7 @@
     "react-moment": "^0.9.7",
     "react-router-dom": "^5.1.2",
     "react-scripts": "3.3.0",
-    "serialize-javascript": "2.1.1"
+    "serialize-javascript": "3.1.0"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -42,7 +42,7 @@
   },
   "resolutions": {
     "lodash": "4.17.19",
-    "serialize-javascript": "2.1.1",
+    "serialize-javascript": "3.1.0",
     "kind-of": "6.0.3",
     "acorn": "7.1.1",
     "minimist": "0.2.1",
